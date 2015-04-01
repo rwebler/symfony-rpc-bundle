@@ -114,6 +114,10 @@ class Implementation extends BaseImplementation
         if (empty($data['jsonrpc']) || version_compare($data['jsonrpc'], '2.0', '<')) {
             throw new InvalidJsonRpcVersion('The JSON-RPC response version is not supported');
         }
+        
+        if (isset($data['params'])) {
+            $data['result'] = $data['params'];
+        }
 
         if (isset($data['result'])) {
             return new MethodReturn($data['result']);
